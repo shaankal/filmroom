@@ -1,6 +1,9 @@
 {
   "name": "filmroom",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "dev": "turbo run dev",
