@@ -1,8 +1,7 @@
+import "./loadEnv";
 import Fastify from "fastify";
 import cors from "@fastify/cors";
-import { config } from "dotenv";
-
-config();
+import authPlugin from "./plugins/auth";
 
 const port = Number(process.env.PORT) || 3000;
 
@@ -10,6 +9,7 @@ async function main() {
   const app = Fastify({ logger: true });
 
   await app.register(cors, { origin: "*" });
+  await app.register(authPlugin);
 
   app.get("/health", async () => ({
     status: "ok" as const,
