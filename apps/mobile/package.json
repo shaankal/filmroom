@@ -3,12 +3,15 @@
   "main": "expo-router/entry",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
-    "dev": "expo start",
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
+    "dev": "node ./scripts/ensure-node.mjs && expo start",
+    "start": "node ./scripts/ensure-node.mjs && expo start",
+    "android": "node ./scripts/ensure-node.mjs && expo start --android",
+    "ios": "node ./scripts/ensure-node.mjs && expo start --ios",
+    "web": "node ./scripts/ensure-node.mjs && expo start --web",
     "build": "tsc --noEmit",
     "lint": "tsc --noEmit"
   },
