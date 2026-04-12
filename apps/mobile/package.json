@@ -1,0 +1,10 @@
+{
+  "name": "@filmroom/mobile",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Expo app: Day 5 (create-expo-app)'",
+    "build": "echo 'Day 5'",
+    "lint": "echo 'no lint yet'"
+  }
+}

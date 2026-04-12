@@ -1,0 +1,10 @@
+{
+  "name": "@filmroom/api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Fastify API: Day 2'",
+    "build": "echo 'Day 2'",
+    "lint": "echo 'no lint yet'"
+  }
+}
