@@ -81,7 +81,7 @@ cp apps/mobile/.env.example apps/mobile/.env   # fill EXPO_PUBLIC_* from Supabas
 npm run dev --workspace=@filmroom/mobile
 ```
 
-Scan the QR code with **Expo Go**, or press `i` / `a` for simulator. You should see the **Film Room** home screen (NativeWind styling).
+Scan the QR code with **Expo Go**, or press `i` / `a` for simulator. The home screen calls **`GET /health`** via `EXPO_PUBLIC_API_URL`. On a physical device, use your computer’s **LAN IP** (not `localhost`) so the phone can reach the API.
 
 ---
 
@@ -109,7 +109,7 @@ npx supabase db push
 
 ## Status
 
-Active development against the V7 technical plan: monorepo, API shell + auth, database migrations, and Expo mobile shell (tabs + NativeWind) are in place; auth routes and `lib/api.ts` wiring are next.
+Active development against the V7 technical plan: monorepo, API shell + auth, database migrations, Expo app (NativeWind), and **mobile `lib/api.ts` + persisted auth store** are in place; Supabase-backed `/auth` routes and login UI are next.
 
 ---
 
