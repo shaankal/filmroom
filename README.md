@@ -22,7 +22,7 @@ Core loop in one line: *your group already debates football every week—Film Ro
 | Path | Role |
 |------|------|
 | [`apps/api`](apps/api) | **Fastify** REST API (Node 20, TypeScript) |
-| [`apps/mobile`](apps/mobile) | **Expo / React Native** client (V7: Expo Router, NativeWind—scaffolded in roadmap) |
+| [`apps/mobile`](apps/mobile) | **Expo SDK 54** app — Expo Router, NativeWind, TanStack Query, Zustand |
 | [`packages/types`](packages/types) | Shared **TypeScript** types and scoring constants |
 | [`supabase/`](supabase) | **PostgreSQL** migrations, Supabase CLI config, seed hook |
 | [`docs/`](docs) | Product and company specs (V5–V7), including technical bootstrap notes |
@@ -43,16 +43,16 @@ Root tooling: **npm workspaces** + **Turborepo** (`turbo run dev`, `build`, `lin
 | Jobs | Railway Cron → internal API routes |
 | CI/CD | GitHub Actions + EAS + Railway (as rolled out) |
 
-Environment variables for local API development are documented in [`apps/api/.env.example`](apps/api/.env.example).
+Environment variables: [`apps/api/.env.example`](apps/api/.env.example) (API), [`apps/mobile/.env.example`](apps/mobile/.env.example) (Expo `EXPO_PUBLIC_*`).
 
 ---
 
 ## Prerequisites
 
-- **Node.js 20+** (see [`.nvmrc`](.nvmrc))
+- **Node.js 20+** (see [`.nvmrc`](.nvmrc)) — required for Expo SDK 54 and the API toolchain
 - **npm** 10+
 - **Supabase** account and CLI (`npx supabase`) for migrations
-- Optional: **Expo Go** on a device once the mobile app is scaffolded
+- **Expo Go** on your phone (or Xcode / Android Studio) to run the mobile app
 
 ---
 
@@ -69,6 +69,19 @@ Create `apps/api/.env` from [`apps/api/.env.example`](apps/api/.env.example). Yo
 npm run dev --workspace=@filmroom/api
 curl http://localhost:3000/health
 ```
+
+---
+
+## Quick start (mobile)
+
+```bash
+cd filmroom
+npm install
+cp apps/mobile/.env.example apps/mobile/.env   # fill EXPO_PUBLIC_* from Supabase + API URL
+npm run dev --workspace=@filmroom/mobile
+```
+
+Scan the QR code with **Expo Go**, or press `i` / `a` for simulator. You should see the **Film Room** home screen (NativeWind styling).
 
 ---
 
@@ -96,7 +109,7 @@ npx supabase db push
 
 ## Status
 
-Active development against the V7 technical plan: monorepo, API shell + auth, and database migrations are in place; mobile app and full route surface are tracked in the spec.
+Active development against the V7 technical plan: monorepo, API shell + auth, database migrations, and Expo mobile shell (tabs + NativeWind) are in place; auth routes and `lib/api.ts` wiring are next.
 
 ---
 
