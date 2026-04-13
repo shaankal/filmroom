@@ -78,10 +78,43 @@ curl http://localhost:3000/health
 cd filmroom
 npm install
 cp apps/mobile/.env.example apps/mobile/.env   # fill EXPO_PUBLIC_* from Supabase + API URL
+```
+
+### Expo Go (QR code)
+
+```bash
 npm run dev --workspace=@filmroom/mobile
 ```
 
-Scan the QR code with **Expo Go**, or press `i` / `a` for simulator. The home screen calls **`GET /health`** via `EXPO_PUBLIC_API_URL`. On a physical device, use your computer’s **LAN IP** (not `localhost`) so the phone can reach the API.
+Scan the QR code with **Expo Go**. For a **physical phone**, set `EXPO_PUBLIC_API_URL` to your Mac’s **LAN IP** (not `localhost`).
+
+### Xcode Simulator or device (native iOS project)
+
+One-time: generate `ios/` and install CocoaPods (requires **Xcode** + **Node 20+**):
+
+```bash
+npm run ios:prebuild --workspace=@filmroom/mobile
+```
+
+Open the workspace in **Xcode** and run (⌘R):
+
+```bash
+npm run ios:xcode --workspace=@filmroom/mobile
+```
+
+Keep **Metro** running while you iterate in Xcode:
+
+```bash
+npm run dev --workspace=@filmroom/mobile
+```
+
+Or let Expo build and launch the Simulator in one step (still uses Xcode under the hood):
+
+```bash
+npm run ios:run --workspace=@filmroom/mobile
+```
+
+The home screen calls **`GET /health`** via `EXPO_PUBLIC_API_URL`. For Simulator-only API access, `http://127.0.0.1:3000` usually works; for a **physical device**, use your Mac’s LAN IP.
 
 ---
 

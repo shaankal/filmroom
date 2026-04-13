@@ -12,6 +12,9 @@
     "android": "node ./scripts/ensure-node.mjs && expo start --android",
     "ios": "node ./scripts/ensure-node.mjs && expo start --ios",
     "web": "node ./scripts/ensure-node.mjs && expo start --web",
+    "ios:prebuild": "node ./scripts/ensure-node.mjs && expo prebuild --platform ios",
+    "ios:run": "node ./scripts/ensure-node.mjs && expo run:ios",
+    "ios:xcode": "node ./scripts/open-ios-workspace.mjs",
     "build": "tsc --noEmit",
     "lint": "tsc --noEmit"
   },
