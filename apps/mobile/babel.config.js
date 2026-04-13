@@ -5,5 +5,7 @@ module.exports = function (api) {
       ["babel-preset-expo", { jsxImportSource: "nativewind" }],
       "nativewind/babel",
     ],
+    // Must be last — required for react-native-reanimated (Expo / RN)
+    plugins: ["react-native-reanimated/plugin"],
   };
 };
