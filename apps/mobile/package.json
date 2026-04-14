@@ -19,6 +19,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@filmroom/types": "*",
     "@expo/vector-icons": "^15.0.3",
     "@react-navigation/native": "^7.1.8",
     "@supabase/supabase-js": "^2.49.1",

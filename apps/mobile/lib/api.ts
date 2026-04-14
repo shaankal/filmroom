@@ -59,5 +59,7 @@ export const api = {
   put: <T>(path: string, body: unknown) =>
     apiFetch<T>(path, { method: "PUT", body: JSON.stringify(body) }),
 
-  delete: <T>(path: string) => apiFetch<T>(path, { method: "DELETE" }),
+  delete: async (path: string) => {
+    await apiFetch<void>(path, { method: "DELETE" });
+  },
 };

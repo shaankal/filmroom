@@ -7,10 +7,17 @@ function pathOnly(url: string): string {
   return q === -1 ? url : url.slice(0, q);
 }
 
+/** Routes that skip Bearer JWT (logout still requires a valid token). */
 function isPublicRoute(method: string, path: string): boolean {
   if (method === "OPTIONS") return true;
   if (path === "/health") return true;
-  if (path.startsWith("/auth")) return true;
+  if (
+    path === "/auth/register" ||
+    path === "/auth/login" ||
+    path === "/auth/refresh"
+  ) {
+    return true;
+  }
   if (method === "GET" && /^\/leagues\/invite\/[^/]+$/.test(path)) return true;
   return false;
 }

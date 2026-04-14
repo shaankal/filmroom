@@ -9,6 +9,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@filmroom/types": "*",
     "@fastify/cors": "^9.0.1",
     "@supabase/supabase-js": "^2.49.1",
     "dotenv": "^16.4.7",

@@ -2,6 +2,7 @@ import "./loadEnv";
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import authPlugin from "./plugins/auth";
+import { registerAuthRoutes } from "./routes/auth";
 
 const port = Number(process.env.PORT) || 3000;
 
@@ -15,6 +16,8 @@ async function main() {
     status: "ok" as const,
     ts: new Date().toISOString(),
   }));
+
+  await registerAuthRoutes(app);
 
   await app.listen({ port, host: "0.0.0.0" });
 }
