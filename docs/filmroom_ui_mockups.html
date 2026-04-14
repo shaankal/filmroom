@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Film Room — UI Mockups</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #080808;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  padding: 48px 32px;
+  color: #fff;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.header h1 {
+  color: #FF6B35;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+}
+.header p {
+  color: #444;
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.screens {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.screen-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.screen-name {
+  color: #444;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.phone {
+  width: 300px;
+  height: 650px;
+  background: #111;
+  border-radius: 38px;
+  border: 2px solid #222;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.95), 0 0 0 1px #1a1a1a;
+  flex-shrink: 0;
+}
+
+.sbar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.navbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  background: #161616;
+  border-top: 1px solid #222;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 6px;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 9px;
+  color: #444;
+}
+.nav-item.active { color: #FF6B35; }
+.nav-icon { font-size: 17px; }
+
+.card {
+  background: #1E1E1E;
+  border-radius: 14px;
+  padding: 14px;
+  margin: 0 14px 10px;
+}
+
+.orange-btn {
+  background: #FF6B35;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: calc(100% - 28px);
+  margin: 0 14px 10px;
+  display: block;
+  text-align: center;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: #FF6B35;
+  border: 1.5px solid #FF6B35;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: calc(100% - 28px);
+  margin: 0 14px 10px;
+  display: block;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.badge-orange { background: rgba(255,107,53,0.15); color: #FF6B35; border: 1px solid rgba(255,107,53,0.3); }
+.badge-green  { background: rgba(76,175,80,0.15);  color: #4CAF50; border: 1px solid rgba(76,175,80,0.3); }
+.badge-blue   { background: rgba(33,150,243,0.15); color: #2196F3; border: 1px solid rgba(33,150,243,0.3); }
+.badge-dim    { background: #252525; color: #555; border: 1px solid #333; }
+
+.divider { height: 1px; background: #252525; margin: 6px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Film Room</h1>
+  <p>UI Mockups — V7 Spec</p>
+</div>
+
+<div class="screens">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 1: HOME                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="sbar"><span>9:41</span><span>●●● ▌ 🔋</span></div>
+
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 14px 4px;">
+        <div>
+          <div style="font-size:19px;font-weight:900;color:#FF6B35;letter-spacing:4px;">FILM ROOM</div>
+          <div style="font-size:9px;color:#555;letter-spacing:1.5px;margin-top:1px;">WEEK 14 IS LIVE 🏈</div>
+        </div>
+        <div style="width:34px;height:34px;background:#1E1E1E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;border:1px solid #2A2A2A;">🔔</div>
+      </div>
+
+      <!-- League card -->
+      <div class="card" style="margin-top:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <div>
+            <div style="font-size:9px;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;">Your League</div>
+            <div style="font-size:13px;font-weight:800;color:#fff;">Monday Night Murders</div>
+          </div>
+          <span class="badge badge-orange">Active</span>
+        </div>
+        <!-- Stats row -->
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <div style="background:#252525;border-radius:10px;padding:7px 10px;flex:1;text-align:center;">
+            <div style="font-size:17px;font-weight:800;color:#FF6B35;">1,247</div>
+            <div style="font-size:8px;color:#555;letter-spacing:1px;">YOUR PTS</div>
+          </div>
+          <div style="background:#252525;border-radius:10px;padding:7px 10px;flex:1;text-align:center;">
+            <div style="font-size:17px;font-weight:800;color:#fff;">#2</div>
+            <div style="font-size:8px;color:#555;letter-spacing:1px;">RANK</div>
+          </div>
+          <div style="background:#252525;border-radius:10px;padding:7px 10px;flex:1;text-align:center;">
+            <div style="font-size:17px;font-weight:800;color:#fff;">6</div>
+            <div style="font-size:8px;color:#555;letter-spacing:1px;">MEMBERS</div>
+          </div>
+        </div>
+        <!-- Mini standings -->
+        <div style="font-size:8px;color:#555;letter-spacing:1.5px;margin-bottom:6px;">TOP STANDINGS</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:#252525;border-radius:8px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="color:#FFD700;font-size:10px;font-weight:800;width:16px;">1</span>
+              <span style="font-size:11px;color:#ddd;">Jake M.</span>
+            </div>
+            <span style="font-size:10px;color:#aaa;">1,312</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:rgba(255,107,53,0.1);border-radius:8px;border:1px solid rgba(255,107,53,0.2);">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="color:#FF6B35;font-size:10px;font-weight:800;width:16px;">2</span>
+              <span style="font-size:11px;color:#FF6B35;font-weight:700;">You</span>
+            </div>
+            <span style="font-size:10px;color:#FF6B35;">1,247</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:#252525;border-radius:8px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="color:#555;font-size:10px;font-weight:700;width:16px;">3</span>
+              <span style="font-size:11px;color:#888;">Marcus T.</span>
+            </div>
+            <span style="font-size:10px;color:#666;">1,055</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="orange-btn">▶ Play This Week's Challenge</div>
+
+      <!-- H2H pending -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#fff;">H2H Challenges</div>
+            <div style="font-size:10px;color:#555;margin-top:2px;">Jake sent you a challenge</div>
+          </div>
+          <span class="badge badge-orange">2 Pending</span>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="nav-item active"><span class="nav-icon">🏠</span><span>Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🏆</span><span>League</span></div>
+        <div class="nav-item"><span class="nav-icon">🎯</span><span>Challenge</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></div>
+      </div>
+    </div>
+    <div class="screen-name">01 — Home</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 2: WEEKLY CHALLENGE                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="sbar"><span>9:41</span><span>●●● ▌ 🔋</span></div>
+
+      <!-- Header -->
+      <div style="display:flex;align-items:center;padding:6px 14px 4px;gap:8px;">
+        <span style="color:#FF6B35;font-size:18px;line-height:1;">←</span>
+        <div style="flex:1;">
+          <div style="font-size:12px;font-weight:800;color:#fff;letter-spacing:1px;">WEEK 14 CHALLENGE</div>
+          <div style="font-size:9px;color:#555;letter-spacing:1px;">QUESTION 2 OF 5</div>
+        </div>
+        <span class="badge badge-blue">Ball Knower</span>
+      </div>
+
+      <!-- Progress bar -->
+      <div style="margin:4px 14px 10px;height:3px;background:#2A2A2A;border-radius:2px;">
+        <div style="width:40%;height:100%;background:#FF6B35;border-radius:2px;"></div>
+      </div>
+
+      <!-- Points + timer -->
+      <div style="display:flex;justify-content:space-between;padding:0 14px 10px;align-items:center;">
+        <span class="badge badge-orange">150 pts base</span>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-size:11px;color:#FF6B35;font-weight:700;">⏱ 0:23</span>
+          <span style="font-size:9px;color:#555;">speed bonus</span>
+        </div>
+      </div>
+
+      <!-- Scenario -->
+      <div class="card" style="margin-bottom:10px;">
+        <div style="font-size:9px;color:#FF6B35;letter-spacing:1.5px;margin-bottom:6px;">SCENARIO</div>
+        <div style="font-size:10px;color:#777;line-height:1.5;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #2A2A2A;">3rd &amp; 7 from your 28. Down 3, 2:00 warning. Opponent has 2 TOs. Defense in Cover-2.</div>
+        <div style="font-size:12px;font-weight:700;color:#fff;line-height:1.5;">What is the QB's best pre-snap read against this coverage?</div>
+      </div>
+
+      <!-- Answer choices -->
+      <div style="padding:0 14px;display:flex;flex-direction:column;gap:7px;">
+        <div style="background:#1E1E1E;border:1.5px solid #2A2A2A;border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:9px;">
+          <span style="width:22px;height:22px;background:#252525;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">A</span>
+          <span style="font-size:10px;color:#bbb;">Attack the deep post — safety is cheating</span>
+        </div>
+        <div style="background:rgba(255,107,53,0.1);border:1.5px solid rgba(255,107,53,0.45);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:9px;">
+          <span style="width:22px;height:22px;background:#FF6B35;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:#fff;">B</span>
+          <span style="font-size:10px;color:#fff;font-weight:600;">Hook-curl combo to the boundary</span>
+        </div>
+        <div style="background:#1E1E1E;border:1.5px solid #2A2A2A;border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:9px;">
+          <span style="width:22px;height:22px;background:#252525;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">C</span>
+          <span style="font-size:10px;color:#bbb;">Check down to RB vs. blitz</span>
+        </div>
+        <div style="background:#1E1E1E;border:1.5px solid #2A2A2A;border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:9px;">
+          <span style="width:22px;height:22px;background:#252525;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">D</span>
+          <span style="font-size:10px;color:#bbb;">Quick slant — exploit the flat</span>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🏆</span><span>League</span></div>
+        <div class="nav-item active"><span class="nav-icon">🎯</span><span>Challenge</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></div>
+      </div>
+    </div>
+    <div class="screen-name">02 — Weekly Challenge</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 3: LEAGUE HUB                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="sbar"><span>9:41</span><span>●●● ▌ 🔋</span></div>
+
+      <div style="padding:6px 14px 4px;">
+        <div style="font-size:9px;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;">Your League</div>
+        <div style="font-size:17px;font-weight:900;color:#fff;">Monday Night Murders</div>
+        <div style="display:flex;gap:6px;margin-top:6px;">
+          <span class="badge badge-green">6 / 8 members</span>
+          <span class="badge badge-orange">Week 14</span>
+        </div>
+      </div>
+
+      <!-- Invite code -->
+      <div style="margin:10px 14px 10px;background:#1E1E1E;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:8px;color:#555;letter-spacing:1.5px;margin-bottom:3px;">INVITE CODE</div>
+          <div style="font-size:17px;font-weight:900;color:#FF6B35;letter-spacing:4px;">MNM-9X2K</div>
+        </div>
+        <div style="background:#FF6B35;border-radius:8px;padding:6px 12px;font-size:10px;font-weight:700;color:#fff;letter-spacing:1px;">COPY</div>
+      </div>
+
+      <!-- Standings -->
+      <div style="padding:0 14px;margin-bottom:8px;">
+        <div style="font-size:8px;color:#555;letter-spacing:1.5px;margin-bottom:8px;">WEEK 14 STANDINGS</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+
+          <div style="background:#1E1E1E;border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:12px;font-weight:800;color:#FFD700;width:16px;">1</span>
+            <div style="width:28px;height:28px;background:#FF6B35;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;">JM</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:700;color:#fff;">Jake M.</div>
+              <div style="font-size:8px;color:#555;">All-Pro</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:12px;font-weight:700;color:#fff;">1,312</div>
+              <div style="font-size:8px;color:#4CAF50;">+45 wk</div>
+            </div>
+          </div>
+
+          <div style="background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.25);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:12px;font-weight:800;color:#C0C0C0;width:16px;">2</span>
+            <div style="width:28px;height:28px;background:#2A2A2A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#FF6B35;flex-shrink:0;">SK</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:700;color:#FF6B35;">You</div>
+              <div style="font-size:8px;color:#FF6B35;opacity:0.6;">Captain</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:12px;font-weight:700;color:#FF6B35;">1,247</div>
+              <div style="font-size:8px;color:#4CAF50;">+67 wk</div>
+            </div>
+          </div>
+
+          <div style="background:#1E1E1E;border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:12px;font-weight:800;color:#CD7F32;width:16px;">3</span>
+            <div style="width:28px;height:28px;background:#2A2A2A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#aaa;flex-shrink:0;">MT</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;color:#ccc;">Marcus T.</div>
+              <div style="font-size:8px;color:#555;">Veteran</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:12px;color:#aaa;">1,055</div>
+              <div style="font-size:8px;color:#555;">+22 wk</div>
+            </div>
+          </div>
+
+          <div style="background:#1E1E1E;border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:12px;color:#444;width:16px;">4</span>
+            <div style="width:28px;height:28px;background:#1A1A1A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#555;flex-shrink:0;">DK</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;color:#888;">Derek K.</div>
+              <div style="font-size:8px;color:#444;">Starter</div>
+            </div>
+            <div style="font-size:12px;color:#555;">987</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="ghost-btn">+ Invite a Friend</div>
+
+      <div class="navbar">
+        <div class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></div>
+        <div class="nav-item active"><span class="nav-icon">🏆</span><span>League</span></div>
+        <div class="nav-item"><span class="nav-icon">🎯</span><span>Challenge</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></div>
+      </div>
+    </div>
+    <div class="screen-name">03 — League Hub</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 4: H2H CHALLENGES                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="sbar"><span>9:41</span><span>●●● ▌ 🔋</span></div>
+
+      <div style="padding:6px 14px 12px;">
+        <div style="font-size:17px;font-weight:900;color:#fff;">H2H Challenges</div>
+        <div style="font-size:9px;color:#555;margin-top:2px;letter-spacing:1.5px;">2 PENDING</div>
+      </div>
+
+      <div style="padding:0 14px;">
+        <div style="font-size:8px;color:#555;letter-spacing:1.5px;margin-bottom:8px;">INCOMING</div>
+
+        <!-- Card 1 -->
+        <div style="background:#1E1E1E;border-radius:14px;padding:12px;margin-bottom:8px;border:1px solid #2A2A2A;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:34px;height:34px;background:#FF6B35;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;">JM</div>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:700;color:#fff;">Jake M. challenged you</div>
+              <div style="font-size:9px;color:#555;">2 hours ago</div>
+            </div>
+            <span class="badge badge-orange">+150 pts</span>
+          </div>
+          <div style="background:#252525;border-radius:8px;padding:7px 10px;margin-bottom:10px;">
+            <div style="font-size:8px;color:#555;letter-spacing:1px;margin-bottom:2px;">SCENARIO PACK</div>
+            <div style="font-size:10px;color:#ccc;">Week 14 · Ball Knower · 3 questions</div>
+          </div>
+          <div style="display:flex;gap:7px;">
+            <div style="flex:1;background:#FF6B35;border-radius:9px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#fff;letter-spacing:.5px;">ACCEPT &amp; PLAY</div>
+            <div style="width:38px;background:#252525;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#555;">✕</div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div style="background:#1E1E1E;border-radius:14px;padding:12px;margin-bottom:14px;border:1px solid #2A2A2A;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:34px;height:34px;background:#2196F3;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;">MT</div>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:700;color:#fff;">Marcus T. challenged you</div>
+              <div style="font-size:9px;color:#555;">5 hours ago</div>
+            </div>
+            <span class="badge badge-orange">+150 pts</span>
+          </div>
+          <div style="display:flex;gap:7px;">
+            <div style="flex:1;background:#FF6B35;border-radius:9px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#fff;">ACCEPT &amp; PLAY</div>
+            <div style="width:38px;background:#252525;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#555;">✕</div>
+          </div>
+        </div>
+
+        <div style="font-size:8px;color:#555;letter-spacing:1.5px;margin-bottom:8px;">SENT</div>
+        <div style="background:#1E1E1E;border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:30px;height:30px;background:#1A1A1A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#555;">DK</div>
+            <div>
+              <div style="font-size:11px;color:#ccc;">Derek K.</div>
+              <div style="font-size:9px;color:#444;">Waiting for response...</div>
+            </div>
+          </div>
+          <span class="badge badge-dim">Pending</span>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></div>
+        <div class="nav-item active"><span class="nav-icon">🏆</span><span>League</span></div>
+        <div class="nav-item"><span class="nav-icon">🎯</span><span>Challenge</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></div>
+      </div>
+    </div>
+    <div class="screen-name">04 — H2H Challenges</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 5: RESULTS                         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="sbar"><span>9:41</span><span>●●● ▌ 🔋</span></div>
+
+      <!-- Score hero -->
+      <div style="padding:10px 14px 0;text-align:center;">
+        <div style="font-size:9px;color:#FF6B35;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Week 14 Results</div>
+        <div style="font-size:52px;font-weight:900;color:#fff;line-height:1.05;">412</div>
+        <div style="font-size:10px;color:#555;letter-spacing:1.5px;margin-bottom:10px;">POINTS THIS WEEK</div>
+
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.3);border-radius:20px;padding:5px 14px;margin-bottom:4px;">
+          <span style="font-size:13px;">🏈</span>
+          <span style="font-size:12px;font-weight:900;color:#FF6B35;letter-spacing:2px;">CAPTAIN</span>
+        </div>
+        <div style="font-size:10px;color:#4CAF50;letter-spacing:1px;margin-bottom:12px;">↑ MOVED UP TO #2</div>
+      </div>
+
+      <!-- Breakdown -->
+      <div class="card" style="margin-bottom:8px;">
+        <div style="font-size:8px;color:#555;letter-spacing:1.5px;margin-bottom:10px;">SCORE BREAKDOWN</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:#ddd;font-weight:600;">Weekly Challenge</div>
+              <div style="font-size:9px;color:#555;">4/5 correct · Ball Knower</div>
+            </div>
+            <div style="font-size:13px;font-weight:800;color:#fff;">247 pts</div>
+          </div>
+          <div class="divider"></div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:#ddd;font-weight:600;">Sunday Sicko</div>
+              <div style="font-size:9px;color:#555;">3 live picks</div>
+            </div>
+            <div style="font-size:13px;font-weight:800;color:#fff;">124 pts</div>
+          </div>
+          <div class="divider"></div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:#ddd;font-weight:600;">H2H Win Bonus</div>
+              <div style="font-size:9px;color:#555;">1 win · beat Jake</div>
+            </div>
+            <div style="font-size:13px;font-weight:800;color:#4CAF50;">+41 pts</div>
+          </div>
+          <div class="divider"></div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:12px;font-weight:800;color:#fff;">Total</div>
+            <div style="font-size:15px;font-weight:900;color:#FF6B35;">412 pts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Season progress -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-size:8px;color:#555;letter-spacing:1px;margin-bottom:2px;">SEASON TOTAL</div>
+            <div style="font-size:17px;font-weight:900;color:#fff;">1,247 pts</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:8px;color:#555;margin-bottom:2px;">NEXT TIER</div>
+            <div style="font-size:10px;color:#9C27B0;font-weight:700;">253 to All-Pro</div>
+          </div>
+        </div>
+        <div style="height:5px;background:#252525;border-radius:3px;overflow:hidden;">
+          <div style="width:73%;height:100%;background:linear-gradient(90deg,#FF6B35,#FF8C42);border-radius:3px;"></div>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🏆</span><span>League</span></div>
+        <div class="nav-item active"><span class="nav-icon">🎯</span><span>Challenge</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></div>
+      </div>
+    </div>
+    <div class="screen-name">05 — Results</div>
+  </div>
+
+</div>
+</body>
+</html>
