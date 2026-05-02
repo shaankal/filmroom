@@ -5,6 +5,8 @@ export type {
   ScenarioDifficulty,
   WeeklyChallengeDetailResponse,
   WeeklyChallengeResponseRow,
+  WeeklyChallengeResultsResponse,
+  WeeklyChallengeResultsStandingRow,
   WeeklyChallengeScenario,
   WeeklyChallengeSubmitBody,
   WeeklyChallengeSubmitResponse,

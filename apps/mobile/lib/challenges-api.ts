@@ -1,5 +1,6 @@
 import type {
   WeeklyChallengeDetailResponse,
+  WeeklyChallengeResultsResponse,
   WeeklyChallengeSubmitBody,
   WeeklyChallengeSubmitResponse,
 } from "@filmroom/types";
@@ -16,5 +17,10 @@ export const challengesApi = {
     api.post<WeeklyChallengeSubmitResponse>(
       `/challenges/weekly/${encodeURIComponent(challengeId)}/submit`,
       body
+    ),
+
+  weeklyResults: (challengeId: string) =>
+    api.get<WeeklyChallengeResultsResponse>(
+      `/challenges/weekly/${encodeURIComponent(challengeId)}/results`
     ),
 };

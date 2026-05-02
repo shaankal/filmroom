@@ -32,3 +32,11 @@ export function useSubmitWeeklyChallengeMutation(leagueId: string | null) {
     },
   });
 }
+
+export function useWeeklyChallengeResultsQuery(challengeId: string | null) {
+  return useQuery({
+    queryKey: ["challenges", "weekly", "results", challengeId],
+    queryFn: () => challengesApi.weeklyResults(challengeId!),
+    enabled: Boolean(challengeId),
+  });
+}

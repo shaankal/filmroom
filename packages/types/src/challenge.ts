@@ -63,4 +63,33 @@ export type WeeklyChallengeSubmitResponse = {
   challengeId: string;
   totalPoints: number;
   responses: WeeklyChallengeResponseRow[];
+  currentRank: number | null;
+  previousRank: number | null;
+  rankChange: number;
+};
+
+export type WeeklyChallengeResultsStandingRow = {
+  userId: string;
+  username: string;
+  weeklyChallengePts: number;
+  sundayPts: number;
+  h2hBonusPts: number;
+  totalPts: number;
+  rank: number | null;
+};
+
+export type WeeklyChallengeResultsResponse = {
+  challenge: WeeklyChallengeSummary;
+  yourResult: {
+    userId: string;
+    username: string;
+    weeklyChallengePts: number;
+    sundayPts: number;
+    h2hBonusPts: number;
+    totalPts: number;
+    rank: number | null;
+    previousRank: number | null;
+    rankChange: number;
+  };
+  standings: WeeklyChallengeResultsStandingRow[];
 };

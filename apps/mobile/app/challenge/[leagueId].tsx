@@ -104,11 +104,14 @@ export default function WeeklyChallengeScreen() {
           className="mt-5 items-center rounded-xl border border-white/10 py-3 active:opacity-80"
           onPress={() =>
             router.replace({
-              pathname: "/league/[leagueId]",
-              params: { leagueId: effectiveLeagueId! },
+              pathname: "/challenge/[leagueId]/results",
+              params: {
+                leagueId: effectiveLeagueId!,
+                challengeId: challenge.data.challenge.id,
+              },
             } as never)
           }>
-          <Text className="font-semibold text-film-chalk">Back to league</Text>
+          <Text className="font-semibold text-film-chalk">View results</Text>
         </Pressable>
       </SafeAreaView>
     );
@@ -170,8 +173,11 @@ export default function WeeklyChallengeScreen() {
           onError: () => setSubmitted(false),
           onSuccess: () => {
             router.replace({
-              pathname: "/league/[leagueId]",
-              params: { leagueId: effectiveLeagueId! },
+              pathname: "/challenge/[leagueId]/results",
+              params: {
+                leagueId: effectiveLeagueId!,
+                challengeId: challenge.data.challenge.id,
+              },
             } as never);
           },
         }
