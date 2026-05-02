@@ -247,6 +247,8 @@ export async function registerChallengeRoutes(app: FastifyInstance) {
           context: row.context,
           prompt: row.prompt,
           choices: normalizeChoices(row.choices),
+          correctAnswer: row.correct_answer,
+          explanation: row.explanation,
         })),
         submission:
           responseRows.length > 0
