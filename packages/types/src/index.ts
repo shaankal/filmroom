@@ -13,6 +13,16 @@ export type {
   WeeklyChallengeSummary,
 } from "./challenge";
 export type {
+  CreateH2HChallengeBody,
+  CreateH2HChallengeResponse,
+  H2HChallengeDetailResponse,
+  H2HChallengeStatus,
+  H2HPendingListResponse,
+  H2HChallengeSummary,
+  SubmitH2HChallengeBody,
+  SubmitH2HChallengeResponse,
+} from "./h2h";
+export type {
   CreateLeagueBody,
   CreateLeagueResponse,
   InvitePreviewResponse,
