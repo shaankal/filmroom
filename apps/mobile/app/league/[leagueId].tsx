@@ -1,6 +1,12 @@
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useLeagueHubQuery } from "@/queries/leagues";
@@ -8,6 +14,7 @@ import { useLeagueHubQuery } from "@/queries/leagues";
 export default function LeagueHubScreen() {
   const { leagueId } = useLocalSearchParams<{ leagueId: string }>();
   const navigation = useNavigation();
+  const router = useRouter();
   const hub = useLeagueHubQuery(
     typeof leagueId === "string" ? leagueId : null
   );
@@ -56,6 +63,18 @@ export default function LeagueHubScreen() {
             Season {league.seasonYear} · Week {league.currentWeek} · Cap{" "}
             {league.memberCap}
           </Text>
+          <Pressable
+            className="mt-4 items-center rounded-lg bg-film-orange py-3 active:opacity-80"
+            onPress={() =>
+              router.push({
+                pathname: "/challenge/[leagueId]",
+                params: { leagueId: league.id },
+              } as never)
+            }>
+            <Text className="font-semibold text-[#0D0D0D]">
+              Start weekly challenge
+            </Text>
+          </Pressable>
         </View>
 
         <Text className="mt-8 text-sm font-semibold uppercase tracking-wide text-film-chalk/60">

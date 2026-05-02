@@ -66,6 +66,15 @@ function RootLayoutNav() {
             headerShadowVisible: false,
           }}
         />
+        <Stack.Screen
+          name="challenge/[leagueId]"
+          options={{
+            title: 'Weekly Challenge',
+            headerStyle: { backgroundColor: '#0D0D0D' },
+            headerTintColor: '#F0EDE6',
+            headerShadowVisible: false,
+          }}
+        />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
