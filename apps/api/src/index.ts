@@ -3,6 +3,7 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import authPlugin from "./plugins/auth";
 import { registerAuthRoutes } from "./routes/auth";
+import { registerLeagueRoutes } from "./routes/leagues";
 
 const port = Number(process.env.PORT) || 3000;
 
@@ -18,6 +19,7 @@ async function main() {
   }));
 
   await registerAuthRoutes(app);
+  await registerLeagueRoutes(app);
 
   await app.listen({ port, host: "0.0.0.0" });
 }

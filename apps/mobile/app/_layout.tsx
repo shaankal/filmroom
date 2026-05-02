@@ -57,6 +57,15 @@ function RootLayoutNav() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="league/[leagueId]"
+          options={{
+            title: 'League',
+            headerStyle: { backgroundColor: '#0D0D0D' },
+            headerTintColor: '#F0EDE6',
+            headerShadowVisible: false,
+          }}
+        />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
