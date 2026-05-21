@@ -53,3 +53,13 @@ export function useJoinLeagueMutation() {
     },
   });
 }
+
+export function useLeagueNudgeMutation(leagueId: string | null) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => leaguesApi.nudge(leagueId!),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["leagues", "hub", leagueId] });
+    },
+  });
+}

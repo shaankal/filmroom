@@ -148,3 +148,79 @@ SET
   opens_at = EXCLUDED.opens_at,
   locks_at = EXCLUDED.locks_at,
   status = EXCLUDED.status;
+
+-- Sunday Live dev windows (early + primetime) for current NFL week 1
+INSERT INTO scenario_sets (
+  id,
+  name,
+  set_type,
+  scenario_ids,
+  nfl_week,
+  season_year
+)
+VALUES
+  (
+    '77777777-7777-7777-7777-777777777701',
+    'Dev Sunday Early',
+    'sunday_early',
+    ARRAY[
+      '11111111-1111-1111-1111-111111111111'::uuid,
+      '22222222-2222-2222-2222-222222222222'::uuid,
+      '33333333-3333-3333-3333-333333333333'::uuid
+    ],
+    1,
+    EXTRACT(YEAR FROM now())::int
+  ),
+  (
+    '77777777-7777-7777-7777-777777777702',
+    'Dev Sunday Primetime',
+    'sunday_prime',
+    ARRAY[
+      '44444444-4444-4444-4444-444444444444'::uuid,
+      '55555555-5555-5555-5555-555555555555'::uuid
+    ],
+    1,
+    EXTRACT(YEAR FROM now())::int
+  )
+ON CONFLICT (id) DO UPDATE
+SET
+  name = EXCLUDED.name,
+  set_type = EXCLUDED.set_type,
+  scenario_ids = EXCLUDED.scenario_ids;
+
+INSERT INTO sunday_windows (
+  id,
+  window_type,
+  scenario_set_id,
+  nfl_week,
+  season_year,
+  opens_at,
+  closes_at,
+  status
+)
+VALUES
+  (
+    '88888888-8888-8888-8888-888888888801',
+    'early_slate',
+    '77777777-7777-7777-7777-777777777701',
+    1,
+    EXTRACT(YEAR FROM now())::int,
+    now() - interval '30 minutes',
+    now() + interval '2 hours',
+    'open'
+  ),
+  (
+    '88888888-8888-8888-8888-888888888802',
+    'primetime',
+    '77777777-7777-7777-7777-777777777702',
+    1,
+    EXTRACT(YEAR FROM now())::int,
+    now() + interval '6 hours',
+    now() + interval '10 hours',
+    'scheduled'
+  )
+ON CONFLICT (id) DO UPDATE
+SET
+  opens_at = EXCLUDED.opens_at,
+  closes_at = EXCLUDED.closes_at,
+  status = EXCLUDED.status;

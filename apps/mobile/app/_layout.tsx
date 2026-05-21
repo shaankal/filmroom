@@ -84,6 +84,24 @@ function RootLayoutNav() {
             headerShadowVisible: false,
           }}
         />
+        <Stack.Screen
+          name="h2h/[id]"
+          options={{
+            title: 'H2H',
+            headerStyle: { backgroundColor: '#0D0D0D' },
+            headerTintColor: '#F0EDE6',
+            headerShadowVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="sunday/[windowId]"
+          options={{
+            title: 'Sunday Live',
+            headerStyle: { backgroundColor: '#0D0D0D' },
+            headerTintColor: '#F0EDE6',
+            headerShadowVisible: false,
+          }}
+        />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>

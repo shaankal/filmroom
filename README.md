@@ -142,7 +142,19 @@ npx supabase db push
 
 ## Status
 
-Active development against the V7 technical plan: monorepo, API shell + auth, database migrations, Expo app (NativeWind), and **mobile `lib/api.ts` + persisted auth store** are in place; Supabase-backed `/auth` routes and login UI are next.
+V7 engineering MVP on `main`: auth, leagues (create/join/hub, commissioner nudge + health), weekly + H2H challenges, Sunday Live API + mobile, profile, League Pass hooks (RevenueCat webhook + dev unlock), and internal cron routes (`/internal/*` with `INTERNAL_CRON_SECRET`). Run `supabase db push` and seed for dev scenarios/windows.
+
+**Cron examples** (API running, secret set):
+
+```bash
+curl -X POST http://localhost:3000/internal/sunday/open-window \
+  -H "x-cron-secret: $INTERNAL_CRON_SECRET" -H "Content-Type: application/json" \
+  -d '{"windowType":"early_slate"}'
+curl -X POST http://localhost:3000/internal/weekly/lock \
+  -H "x-cron-secret: $INTERNAL_CRON_SECRET" -H "Content-Type: application/json" -d '{}'
+```
+
+Set `LEAGUE_PASS_DEV_UNLOCK=true` in `apps/api/.env` to test League Pass without RevenueCat.
 
 ---
 

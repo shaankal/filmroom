@@ -60,6 +60,8 @@ export type LeagueStandingRow = {
   weeksWon: number;
 };
 
+export type LeagueHealthState = "healthy" | "slipping" | "at_risk" | "dormant";
+
 export type LeagueHubLeague = {
   id: string;
   name: string;
@@ -69,10 +71,50 @@ export type LeagueHubLeague = {
   seasonYear: number;
   commissionerId: string;
   memberCap: number;
+  healthState: LeagueHealthState;
+  leaguePassActive: boolean;
+};
+
+export type LeagueHubRivalryRow = {
+  userAId: string;
+  userAUsername: string;
+  userBId: string;
+  userBUsername: string;
+  userAWins: number;
+  userBWins: number;
+  lastPlayed: string | null;
 };
 
 export type LeagueHubResponse = {
   league: LeagueHubLeague;
   members: LeagueHubMember[];
   standings: LeagueStandingRow[];
+  pendingH2hCount: number;
+  currentWeeklyChallengeId: string | null;
+  rivalries: LeagueHubRivalryRow[];
+};
+
+export type UpdateLeagueSettingsBody = {
+  name?: string;
+  memberCap?: number;
+};
+
+export type LeagueHealthMemberActivity = {
+  userId: string;
+  username: string;
+  playedThisWeek: boolean;
+  lastActiveAt: string | null;
+};
+
+export type LeagueHealthResponse = {
+  leagueId: string;
+  healthState: LeagueHealthState;
+  memberCount: number;
+  activeThisWeek: number;
+  members: LeagueHealthMemberActivity[];
+};
+
+export type LeagueNudgeResponse = {
+  sent: number;
+  inactiveUserIds: string[];
 };

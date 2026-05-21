@@ -19,6 +19,7 @@ function isPublicRoute(method: string, path: string): boolean {
     return true;
   }
   if (method === "GET" && /^\/leagues\/invite\/[^/]+$/.test(path)) return true;
+  if (method === "POST" && path === "/payments/webhook") return true;
   return false;
 }
 

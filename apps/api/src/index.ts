@@ -4,7 +4,11 @@ import cors from "@fastify/cors";
 import authPlugin from "./plugins/auth";
 import { registerAuthRoutes } from "./routes/auth";
 import { registerChallengeRoutes } from "./routes/challenges";
+import { registerInternalRoutes } from "./routes/internal";
 import { registerLeagueRoutes } from "./routes/leagues";
+import { registerPaymentRoutes } from "./routes/payments";
+import { registerProfileRoutes } from "./routes/profile";
+import { registerSundayRoutes } from "./routes/sunday";
 
 const port = Number(process.env.PORT) || 3000;
 
@@ -22,6 +26,10 @@ async function main() {
   await registerAuthRoutes(app);
   await registerLeagueRoutes(app);
   await registerChallengeRoutes(app);
+  await registerSundayRoutes(app);
+  await registerProfileRoutes(app);
+  await registerPaymentRoutes(app);
+  await registerInternalRoutes(app);
 
   await app.listen({ port, host: "0.0.0.0" });
 }

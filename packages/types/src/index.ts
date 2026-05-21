@@ -28,14 +28,41 @@ export type {
   InvitePreviewResponse,
   JoinLeagueBody,
   JoinLeagueResponse,
+  LeagueHealthMemberActivity,
+  LeagueHealthResponse,
+  LeagueHealthState,
   LeagueHubLeague,
   LeagueHubMember,
   LeagueHubResponse,
+  LeagueHubRivalryRow,
+  LeagueNudgeResponse,
   LeagueStandingRow,
   LeagueSummary,
   LeagueType,
   LeaguesListResponse,
+  UpdateLeagueSettingsBody,
 } from "./league";
+export type {
+  LeaguePassPurchaseBody,
+  LeaguePassPurchaseResponse,
+  LeaguePassStatusResponse,
+} from "./payments";
+export type {
+  ProfileLeagueStanding,
+  ProfileResponse,
+  ProfileRivalryRow,
+} from "./profile";
+export type {
+  SundayLiveResponse,
+  SundayLiveStandingRow,
+  SundaySubmitBody,
+  SundaySubmitResponse,
+  SundayWindowScenariosResponse,
+  SundayWindowsResponse,
+  SundayWindowStatus,
+  SundayWindowSummary,
+  SundayWindowType,
+} from "./sunday";
 export {
   BASE_POINTS,
   calcScenarioScore,

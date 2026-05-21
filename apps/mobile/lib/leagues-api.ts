@@ -4,8 +4,11 @@ import type {
   InvitePreviewResponse,
   JoinLeagueBody,
   JoinLeagueResponse,
+  LeagueHealthResponse,
   LeagueHubResponse,
+  LeagueNudgeResponse,
   LeaguesListResponse,
+  UpdateLeagueSettingsBody,
 } from "@filmroom/types";
 
 import { api } from "@/lib/api";
@@ -26,4 +29,13 @@ export const leaguesApi = {
 
   hub: (leagueId: string) =>
     api.get<LeagueHubResponse>(`/leagues/${leagueId}`),
+
+  health: (leagueId: string) =>
+    api.get<LeagueHealthResponse>(`/leagues/${leagueId}/health`),
+
+  nudge: (leagueId: string) =>
+    api.post<LeagueNudgeResponse>(`/leagues/${leagueId}/nudge`, {}),
+
+  updateSettings: (leagueId: string, body: UpdateLeagueSettingsBody) =>
+    api.put<{ ok: boolean }>(`/leagues/${leagueId}/settings`, body),
 };
