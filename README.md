@@ -56,6 +56,8 @@ Environment variables: [`apps/api/.env.example`](apps/api/.env.example) (API), [
 
 ---
 
+**Full local setup (Supabase keys, seed, device testing):** see [`docs/SETUP.md`](docs/SETUP.md).
+
 ## Quick start (API)
 
 ```bash

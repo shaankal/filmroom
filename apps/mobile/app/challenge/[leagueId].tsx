@@ -13,6 +13,8 @@ import type { ScenarioAnswer, WeeklyChallengeSubmitBody } from "@filmroom/types"
 
 import { ExplanationPanel } from "@/components/challenges/ExplanationPanel";
 import { ScenarioCard } from "@/components/challenges/ScenarioCard";
+import { Badge } from "@/components/ui/Badge";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 import { useSubmitWeeklyChallengeMutation, useWeeklyChallengeQuery } from "@/queries/challenges";
 
 type DraftResponse = {
@@ -188,20 +190,24 @@ export default function WeeklyChallengeScreen() {
     setScenarioIndex((value) => value + 1);
   };
 
+  const progress = (scenarioIndex + 1) / totalScenarios;
+
   return (
     <SafeAreaView className="flex-1 bg-film-bg" edges={["bottom", "left", "right"]}>
-      <ScrollView className="flex-1 px-4 pt-3">
-        <View className="mb-4 flex-row items-center justify-between">
-          <View>
-            <Text className="text-xs font-semibold uppercase tracking-wide text-film-gold">
-              Weekly challenge
-            </Text>
-            <Text className="mt-1 text-sm text-film-chalk/70">
-              Scenario {scenarioIndex + 1} of {totalScenarios}
-            </Text>
-          </View>
-          <Text className="font-mono text-sm text-film-chalk/60">
-            Week {challenge.data.challenge.weekNumber}
+      <ScrollView className="flex-1 pt-2">
+        <View className="px-3.5 pb-2">
+          <Text className="text-xs font-extrabold tracking-wide text-white">
+            WEEK {challenge.data.challenge.weekNumber} CHALLENGE
+          </Text>
+          <Text className="text-[9px] tracking-wide text-[#555555]">
+            QUESTION {scenarioIndex + 1} OF {totalScenarios}
+          </Text>
+        </View>
+        <ProgressBar progress={progress} />
+        <View className="mt-3 flex-row items-center justify-between px-3.5">
+          <Badge label="150 pts base" variant="orange" />
+          <Text className="text-[11px] font-bold text-film-orange">
+            ⏱ speed bonus
           </Text>
         </View>
 
@@ -210,6 +216,7 @@ export default function WeeklyChallengeScreen() {
           selectedAnswer={selectedAnswer}
           disabled={showExplanation || submitted || submit.isPending}
           onSelect={onSelect}
+          progressLabel={`Scenario ${scenarioIndex + 1}`}
         />
 
         {showExplanation && currentDraft ? (

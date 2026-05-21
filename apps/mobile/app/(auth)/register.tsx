@@ -45,7 +45,12 @@ export default function RegisterScreen() {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         className="flex-1 px-6 pt-4">
-        <Text className="text-2xl font-bold text-film-chalk">Create account</Text>
+        <Text
+          className="text-xl font-black text-film-orange"
+          style={{ letterSpacing: 4 }}>
+          FILM ROOM
+        </Text>
+        <Text className="mt-4 text-2xl font-bold text-film-chalk">Create account</Text>
         <Text className="mt-2 text-film-chalk/70">
           Pick a username (letters, numbers, underscore). Password at least 8 characters.
         </Text>

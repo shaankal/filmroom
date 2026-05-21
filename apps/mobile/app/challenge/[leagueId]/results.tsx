@@ -9,7 +9,16 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Card } from "@/components/ui/Card";
+import { PrimaryButton } from "@/components/ui/PrimaryButton";
+import { SectionLabel } from "@/components/ui/SectionLabel";
+import { StandingRow } from "@/components/ui/StandingRow";
+import { useAuthStore } from "@/stores/auth";
 import { useWeeklyChallengeResultsQuery } from "@/queries/challenges";
+
+function Divider() {
+  return <View className="my-2 h-px bg-[#252525]" />;
+}
 
 export default function WeeklyChallengeResultsScreen() {
   const { leagueId, challengeId } = useLocalSearchParams<{
@@ -18,8 +27,8 @@ export default function WeeklyChallengeResultsScreen() {
   }>();
   const navigation = useNavigation();
   const router = useRouter();
+  const session = useAuthStore((s) => s.session);
 
-  const effectiveLeagueId = typeof leagueId === "string" ? leagueId : null;
   const effectiveChallengeId =
     typeof challengeId === "string" ? challengeId : null;
   const results = useWeeklyChallengeResultsQuery(effectiveChallengeId);
@@ -49,92 +58,132 @@ export default function WeeklyChallengeResultsScreen() {
   }
 
   const { challenge, yourResult, standings } = results.data;
-  const rankChange =
+  const movedUp =
     yourResult.rankChange > 0
-      ? `+${yourResult.rankChange}`
-      : `${yourResult.rankChange}`;
+      ? `↑ MOVED UP TO #${yourResult.rank ?? "—"}`
+      : yourResult.rankChange < 0
+        ? `↓ DROPPED TO #${yourResult.rank ?? "—"}`
+        : `RANK #${yourResult.rank ?? "—"}`;
 
   return (
     <SafeAreaView
       className="flex-1 bg-film-bg"
       edges={["bottom", "left", "right"]}>
-      <ScrollView className="flex-1 px-4 pt-3">
-        <View className="rounded-2xl border border-film-orange/35 bg-film-field/25 p-5">
-          <Text className="text-xs font-semibold uppercase tracking-wide text-film-gold">
-            Week {challenge.weekNumber} results
+      <ScrollView className="flex-1 pb-8" showsVerticalScrollIndicator={false}>
+        <View className="items-center px-3.5 pb-2 pt-3">
+          <Text className="text-[9px] font-semibold tracking-[2px] text-film-orange">
+            WEEK {challenge.weekNumber} RESULTS
           </Text>
-          <Text className="mt-3 text-4xl font-bold text-film-chalk">
-            {yourResult.totalPts} pts
+          <Text className="mt-1 text-[52px] font-black leading-none text-white">
+            {yourResult.totalPts}
           </Text>
-          <Text className="mt-2 text-film-chalk/70">
-            Weekly challenge points: {yourResult.weeklyChallengePts}
+          <Text className="mb-3 text-[10px] tracking-widest text-[#555555]">
+            POINTS THIS WEEK
           </Text>
-
-          <View className="mt-5 flex-row gap-3">
-            <View className="flex-1 rounded-xl border border-white/10 bg-black/20 p-3">
-              <Text className="text-xs uppercase text-film-chalk/55">Rank</Text>
-              <Text className="mt-1 text-2xl font-semibold text-film-chalk">
-                #{yourResult.rank ?? "—"}
-              </Text>
-            </View>
-            <View className="flex-1 rounded-xl border border-white/10 bg-black/20 p-3">
-              <Text className="text-xs uppercase text-film-chalk/55">
-                Rank change
-              </Text>
-              <Text className="mt-1 text-2xl font-semibold text-film-chalk">
-                {rankChange}
-              </Text>
-            </View>
+          <View
+            className="rounded-full border px-3.5 py-1.5"
+            style={{
+              borderColor: "rgba(255,107,53,0.3)",
+              backgroundColor: "rgba(255,107,53,0.1)",
+            }}>
+            <Text className="text-xs font-black tracking-widest text-film-orange">
+              🏈 CAPTAIN
+            </Text>
           </View>
-
-          <Text className="mt-4 text-sm text-film-chalk/55">
-            Previous rank:{" "}
-            {yourResult.previousRank ? `#${yourResult.previousRank}` : "N/A"}
+          <Text className="mt-2 text-[10px] tracking-wide text-[#4CAF50]">
+            {movedUp}
           </Text>
         </View>
 
-        <Text className="mt-8 text-sm font-semibold uppercase tracking-wide text-film-chalk/60">
-          Weekly standings
-        </Text>
-        <View className="mt-2 rounded-xl border border-white/10">
-          {standings.map((row, index) => {
-            const isYou = row.userId === yourResult.userId;
-            return (
-              <View
+        <Card className="mb-3">
+          <SectionLabel>Score breakdown</SectionLabel>
+          <View className="flex-row justify-between">
+            <View>
+              <Text className="text-[11px] font-semibold text-[#DDDDDD]">
+                Weekly Challenge
+              </Text>
+              <Text className="text-[9px] text-[#555555]">This submission</Text>
+            </View>
+            <Text className="text-sm font-extrabold text-white">
+              {yourResult.weeklyChallengePts} pts
+            </Text>
+          </View>
+          <Divider />
+          <View className="flex-row justify-between">
+            <View>
+              <Text className="text-[11px] font-semibold text-[#DDDDDD]">
+                Sunday Live
+              </Text>
+              <Text className="text-[9px] text-[#555555]">Window picks</Text>
+            </View>
+            <Text className="text-sm font-extrabold text-white">
+              {yourResult.sundayPts} pts
+            </Text>
+          </View>
+          <Divider />
+          <View className="flex-row justify-between">
+            <View>
+              <Text className="text-[11px] font-semibold text-[#DDDDDD]">
+                H2H Win Bonus
+              </Text>
+              <Text className="text-[9px] text-[#555555]">Week wins</Text>
+            </View>
+            <Text className="text-sm font-extrabold text-[#4CAF50]">
+              +{yourResult.h2hBonusPts} pts
+            </Text>
+          </View>
+          <Divider />
+          <View className="flex-row justify-between">
+            <Text className="text-xs font-extrabold text-white">Total</Text>
+            <Text className="text-base font-black text-film-orange">
+              {yourResult.totalPts} pts
+            </Text>
+          </View>
+        </Card>
+
+        <Card>
+          <View className="mb-2 flex-row justify-between">
+            <View>
+              <Text className="text-[8px] text-[#555555]">SEASON TOTAL</Text>
+              <Text className="text-lg font-black text-white">
+                {yourResult.totalPts} pts
+              </Text>
+            </View>
+            <Text className="text-[10px] font-bold text-[#9C27B0]">
+              Keep climbing
+            </Text>
+          </View>
+          <View className="h-1.5 overflow-hidden rounded-sm bg-[#252525]">
+            <View
+              className="h-full rounded-sm bg-film-orange"
+              style={{ width: "73%" }}
+            />
+          </View>
+        </Card>
+
+        <View className="mt-6 px-3.5">
+          <SectionLabel>Full standings</SectionLabel>
+          <View className="gap-1">
+            {standings.map((row) => (
+              <StandingRow
                 key={row.userId}
-                className={`flex-row items-center justify-between border-b border-white/10 px-3 py-3 ${
-                  index === standings.length - 1 ? "border-b-0" : ""
-                } ${isYou ? "bg-film-orange/10" : ""}`}>
-                <View>
-                  <Text
-                    className={`font-medium ${
-                      isYou ? "text-film-orange" : "text-film-chalk"
-                    }`}>
-                    {row.rank ?? "—"}. {row.username}
-                  </Text>
-                  <Text className="mt-1 text-xs text-film-chalk/55">
-                    Weekly {row.weeklyChallengePts} · Sunday {row.sundayPts} ·
-                    H2H {row.h2hBonusPts}
-                  </Text>
-                </View>
-                <Text className="font-mono text-film-chalk/85">
-                  {row.totalPts} pts
-                </Text>
-              </View>
-            );
-          })}
+                rank={row.rank}
+                username={
+                  row.userId === session?.userId ? "You" : row.username
+                }
+                points={row.totalPts}
+                isYou={row.userId === session?.userId}
+              />
+            ))}
+          </View>
         </View>
 
-        <Pressable
-          className="mt-6 items-center rounded-xl bg-film-orange py-3 active:opacity-80"
-          onPress={() =>
-            router.replace({
-              pathname: "/league/[leagueId]",
-              params: { leagueId: effectiveLeagueId! },
-            } as never)
-          }>
-          <Text className="font-semibold text-[#0D0D0D]">Back to league</Text>
-        </Pressable>
+        <View className="mt-6">
+          <PrimaryButton
+            label="Back to home"
+            onPress={() => router.replace("/(tabs)" as never)}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

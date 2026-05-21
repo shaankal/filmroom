@@ -43,7 +43,12 @@ export default function LoginScreen() {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         className="flex-1 px-6 pt-4">
-        <Text className="text-2xl font-bold text-film-chalk">Welcome back</Text>
+        <Text
+          className="text-xl font-black tracking-[4px] text-film-orange"
+          style={{ letterSpacing: 4 }}>
+          FILM ROOM
+        </Text>
+        <Text className="mt-4 text-2xl font-bold text-film-chalk">Welcome back</Text>
         <Text className="mt-2 text-film-chalk/70">
           Sign in with the email you used to register.
         </Text>
