@@ -47,3 +47,7 @@ export async function refreshSession(
 export async function logoutAccount(): Promise<void> {
   await api.delete("/auth/logout");
 }
+
+export async function deleteAccount(): Promise<void> {
+  await api.delete("/auth/me");
+}

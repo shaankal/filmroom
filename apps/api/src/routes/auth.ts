@@ -176,4 +176,45 @@ export async function registerAuthRoutes(app: FastifyInstance) {
   app.delete("/auth/logout", async (_request, reply) => {
     return reply.code(204).send();
   });
+
+  app.delete("/auth/me", async (request, reply) => {
+    const userId = request.userId;
+    if (!userId) {
+      return reply.code(401).send({ error: "missing token" });
+    }
+
+    const admin = getSupabase();
+    const deletedUsername = `deleted_${userId.replace(/-/g, "").slice(0, 20)}`;
+    const deletedEmail = `${userId}@deleted.filmroom.local`;
+
+    const { error: profileErr } = await admin
+      .from("users")
+      .update({
+        email: deletedEmail,
+        username: deletedUsername,
+        avatar_url: null,
+        favorite_team: null,
+      })
+      .eq("id", userId);
+
+    if (profileErr) {
+      request.log.error(profileErr);
+      return reply.code(500).send({ error: "delete_failed" });
+    }
+
+    await admin
+      .from("league_members")
+      .update({ is_active: false })
+      .eq("user_id", userId);
+
+    await admin.from("notifications_log").delete().eq("user_id", userId);
+
+    const { error: authErr } = await admin.auth.admin.deleteUser(userId);
+    if (authErr) {
+      request.log.error(authErr);
+      return reply.code(500).send({ error: "delete_failed" });
+    }
+
+    return reply.code(204).send();
+  });
 }

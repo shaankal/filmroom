@@ -1,16 +1,67 @@
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BrandHeader } from "@/components/ui/BrandHeader";
 import { Card } from "@/components/ui/Card";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StandingRow } from "@/components/ui/StandingRow";
+import { deleteAccount, logoutAccount } from "@/lib/auth-api";
 import { useAuthStore } from "@/stores/auth";
 import { useProfileMeQuery } from "@/queries/profile";
 
 export default function ProfileScreen() {
+  const router = useRouter();
   const session = useAuthStore((s) => s.session);
+  const clearSession = useAuthStore((s) => s.clearSession);
   const profile = useProfileMeQuery();
+  const [deleting, setDeleting] = useState(false);
+
+  const onSignOut = async () => {
+    try {
+      await logoutAccount();
+    } finally {
+      clearSession();
+      router.replace("/(auth)/login");
+    }
+  };
+
+  const onDeleteAccount = () => {
+    Alert.alert(
+      "Delete account?",
+      "This removes your login, anonymizes your profile, leaves leagues, and cannot be undone.",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            setDeleting(true);
+            try {
+              await deleteAccount();
+              clearSession();
+              router.replace("/(auth)/login");
+            } catch (err) {
+              Alert.alert(
+                "Could not delete account",
+                err instanceof Error ? err.message : "Try again later."
+              );
+            } finally {
+              setDeleting(false);
+            }
+          },
+        },
+      ]
+    );
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-film-bg" edges={["top", "left", "right"]}>
@@ -95,6 +146,34 @@ export default function ProfileScreen() {
                   ))}
                 </View>
               )}
+            </View>
+
+            <View className="mt-6">
+              <SectionLabel>Account</SectionLabel>
+              <View className="gap-2 px-3.5">
+                <Pressable
+                  className="rounded-xl border border-white/10 bg-[#1E1E1E] px-4 py-3 active:opacity-80"
+                  onPress={() => router.push("/legal" as never)}>
+                  <Text className="text-sm font-bold text-film-chalk">
+                    Legal, privacy, and support
+                  </Text>
+                </Pressable>
+                <Pressable
+                  className="rounded-xl border border-white/10 bg-[#1E1E1E] px-4 py-3 active:opacity-80"
+                  onPress={onSignOut}>
+                  <Text className="text-sm font-bold text-film-chalk">
+                    Sign out
+                  </Text>
+                </Pressable>
+                <Pressable
+                  className="rounded-xl border border-red-500/40 bg-red-950/20 px-4 py-3 active:opacity-80"
+                  disabled={deleting}
+                  onPress={onDeleteAccount}>
+                  <Text className="text-sm font-bold text-red-300">
+                    {deleting ? "Deleting..." : "Delete account"}
+                  </Text>
+                </Pressable>
+              </View>
             </View>
           </>
         ) : null}

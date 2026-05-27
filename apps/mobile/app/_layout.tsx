@@ -108,6 +108,15 @@ function RootLayoutNav() {
             headerShadowVisible: false,
           }}
         />
+        <Stack.Screen
+          name="legal"
+          options={{
+            title: 'Legal',
+            headerStyle: { backgroundColor: '#0D0D0D' },
+            headerTintColor: '#F0EDE6',
+            headerShadowVisible: false,
+          }}
+        />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
