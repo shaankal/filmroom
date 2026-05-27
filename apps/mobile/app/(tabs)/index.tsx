@@ -35,8 +35,20 @@ export default function HomeScreen() {
       <ScrollView className="pb-8" showsVerticalScrollIndicator={false}>
         <BrandHeader subtitle={weekLabel} showBell />
 
-        {leagues.isPending ? (
+        {leagues.isLoading ? (
           <ActivityIndicator className="mt-12" color="#FF6B35" />
+        ) : leagues.isError ? (
+          <Card className="mt-4">
+            <Text className="text-sm text-red-400">
+              {leagues.error instanceof Error
+                ? leagues.error.message
+                : "Could not reach API"}
+            </Text>
+            <Text className="mt-2 text-xs text-film-chalk/55">
+              Is the API running? On a phone, use your PC LAN IP in
+              EXPO_PUBLIC_API_URL, not localhost.
+            </Text>
+          </Card>
         ) : !primary ? (
           <Card className="mt-4">
             <Text className="text-sm text-film-chalk/75">

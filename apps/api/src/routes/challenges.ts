@@ -9,6 +9,7 @@ import type {
   ScenarioAnswer,
   ScenarioChoice,
   ScenarioDifficulty,
+  WeeklyChallengeScenario,
   SubmitH2HChallengeBody,
   SubmitH2HChallengeResponse,
   WeeklyChallengeDetailResponse,
@@ -135,6 +136,26 @@ function normalizeChoices(raw: unknown): ScenarioChoice[] {
   return normalized;
 }
 
+function toScenarioPayload(
+  row: ScenarioRow,
+  revealAnswer: boolean
+): WeeklyChallengeScenario {
+  return {
+    id: row.id,
+    conceptTag: row.concept_tag,
+    difficulty: row.difficulty,
+    context: row.context,
+    prompt: row.prompt,
+    choices: normalizeChoices(row.choices),
+    ...(revealAnswer
+      ? {
+          correctAnswer: row.correct_answer,
+          explanation: row.explanation,
+        }
+      : {}),
+  };
+}
+
 async function requireLeagueMembership(
   userId: string,
   leagueId: string
@@ -223,7 +244,8 @@ async function loadChallengeScenarios(scenarioSetId: string) {
     .select(
       "id, concept_tag, difficulty, context, prompt, choices, correct_answer, explanation, status"
     )
-    .in("id", scenarioIds);
+    .in("id", scenarioIds)
+    .in("status", ["approved", "active"]);
 
   if (scenarioErr || !scenarioRows) {
     return null;
@@ -381,6 +403,7 @@ export async function registerChallengeRoutes(app: FastifyInstance) {
           }) satisfies WeeklyChallengeResponseRow
       );
 
+      const revealAnswers = responseRows.length > 0;
       const body: WeeklyChallengeDetailResponse = {
         challenge: {
           id: challenge.id,
@@ -391,16 +414,7 @@ export async function registerChallengeRoutes(app: FastifyInstance) {
           locksAt: challenge.locks_at,
           status: challenge.status,
         },
-        scenarios: scenarios.map((row) => ({
-          id: row.id,
-          conceptTag: row.concept_tag,
-          difficulty: row.difficulty,
-          context: row.context,
-          prompt: row.prompt,
-          choices: normalizeChoices(row.choices),
-          correctAnswer: row.correct_answer,
-          explanation: row.explanation,
-        })),
+        scenarios: scenarios.map((row) => toScenarioPayload(row, revealAnswers)),
         submission:
           responseRows.length > 0
             ? {
@@ -887,18 +901,10 @@ export async function registerChallengeRoutes(app: FastifyInstance) {
         challenge.challenged_id,
       ]);
 
+      const revealAnswers = responseRows.length > 0 || challenge.status === "complete";
       const body: H2HChallengeDetailResponse = {
         challenge: toH2HSummary(challenge, usernames),
-        scenarios: scenarios.map((row) => ({
-          id: row.id,
-          conceptTag: row.concept_tag,
-          difficulty: row.difficulty,
-          context: row.context,
-          prompt: row.prompt,
-          choices: normalizeChoices(row.choices),
-          correctAnswer: row.correct_answer,
-          explanation: row.explanation,
-        })),
+        scenarios: scenarios.map((row) => toScenarioPayload(row, revealAnswers)),
         submission:
           responseRows.length > 0
             ? {

@@ -11,7 +11,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import type { ScenarioAnswer, WeeklyChallengeSubmitBody } from "@filmroom/types";
 
-import { ExplanationPanel } from "@/components/challenges/ExplanationPanel";
 import { ScenarioCard } from "@/components/challenges/ScenarioCard";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
@@ -37,7 +36,7 @@ export default function WeeklyChallengeScreen() {
     null
   );
   const [draftResponses, setDraftResponses] = useState<DraftResponse[]>([]);
-  const [showExplanation, setShowExplanation] = useState(false);
+  const [answerLocked, setAnswerLocked] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [scenarioStartedAt, setScenarioStartedAt] = useState<number>(Date.now());
 
@@ -52,7 +51,7 @@ export default function WeeklyChallengeScreen() {
   useEffect(() => {
     setScenarioStartedAt(Date.now());
     setSelectedAnswer(null);
-    setShowExplanation(false);
+    setAnswerLocked(false);
   }, [scenarioIndex]);
 
   const scenarios = challenge.data?.scenarios ?? [];
@@ -131,7 +130,7 @@ export default function WeeklyChallengeScreen() {
   const isLastScenario = scenarioIndex === totalScenarios - 1;
 
   const onSelect = (answer: ScenarioAnswer) => {
-    if (showExplanation) return;
+    if (answerLocked) return;
 
     const responseTimeMs = Math.max(0, Date.now() - scenarioStartedAt);
     const draft: DraftResponse = {
@@ -145,7 +144,7 @@ export default function WeeklyChallengeScreen() {
       draft,
     ]);
     setSelectedAnswer(answer);
-    setShowExplanation(true);
+    setAnswerLocked(true);
   };
 
   const onAdvance = () => {
@@ -214,20 +213,29 @@ export default function WeeklyChallengeScreen() {
         <ScenarioCard
           scenario={currentScenario}
           selectedAnswer={selectedAnswer}
-          disabled={showExplanation || submitted || submit.isPending}
+          disabled={answerLocked || submitted || submit.isPending}
           onSelect={onSelect}
           progressLabel={`Scenario ${scenarioIndex + 1}`}
         />
 
-        {showExplanation && currentDraft ? (
-          <View className="mt-4">
-            <ExplanationPanel
-              scenario={currentScenario}
-              selectedAnswer={currentDraft.answer}
-              responseTimeMs={currentDraft.responseTimeMs}
-              isLast={isLastScenario}
-              onNext={onAdvance}
-            />
+        {answerLocked && currentDraft ? (
+          <View className="mt-4 rounded-2xl border border-white/10 bg-black/25 p-4">
+            <Text className="text-sm font-semibold uppercase tracking-wide text-film-gold">
+              Answer locked
+            </Text>
+            <Text className="mt-2 text-base text-film-chalk">
+              You answered {currentDraft.answer}.
+            </Text>
+            <Text className="mt-2 text-sm text-film-chalk/60">
+              Response time: {(currentDraft.responseTimeMs / 1000).toFixed(1)}s
+            </Text>
+            <Pressable
+              className="mt-5 items-center rounded-xl bg-film-orange py-3 active:opacity-80"
+              onPress={onAdvance}>
+              <Text className="font-semibold text-[#0D0D0D]">
+                {isLastScenario ? "Submit challenge" : "Next scenario"}
+              </Text>
+            </Pressable>
           </View>
         ) : (
           <Text className="mt-4 text-sm text-film-chalk/55">

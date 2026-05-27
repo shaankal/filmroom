@@ -32,10 +32,40 @@ export default function LeagueTabScreen() {
   const nudge = useLeagueNudgeMutation(primary?.id ?? null);
   const [copied, setCopied] = useState(false);
 
-  if (leagues.isPending || hub.isPending) {
+  if (leagues.isLoading || (primary != null && hub.isLoading)) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center bg-film-bg">
         <ActivityIndicator color="#FF6B35" size="large" />
+      </SafeAreaView>
+    );
+  }
+
+  if (leagues.isError) {
+    return (
+      <SafeAreaView className="flex-1 bg-film-bg px-4 pt-4">
+        <Text className="text-2xl font-bold text-film-chalk">League</Text>
+        <Text className="mt-2 text-red-400">
+          {leagues.error instanceof Error
+            ? leagues.error.message
+            : "Could not load leagues"}
+        </Text>
+        <Text className="mt-2 text-sm text-film-chalk/60">
+          Check that the API is running and EXPO_PUBLIC_API_URL points at your PC
+          (e.g. http://192.168.68.55:3000 on a phone).
+        </Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (primary && hub.isError) {
+    return (
+      <SafeAreaView className="flex-1 bg-film-bg px-4 pt-4">
+        <Text className="text-2xl font-bold text-film-chalk">League</Text>
+        <Text className="mt-2 text-red-400">
+          {hub.error instanceof Error
+            ? hub.error.message
+            : "Could not load league"}
+        </Text>
       </SafeAreaView>
     );
   }

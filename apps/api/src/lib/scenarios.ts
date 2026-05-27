@@ -73,7 +73,8 @@ export async function loadChallengeScenarios(scenarioSetId: string) {
     .select(
       "id, concept_tag, difficulty, context, prompt, choices, correct_answer, explanation, status"
     )
-    .in("id", scenarioIds);
+    .in("id", scenarioIds)
+    .in("status", ["approved", "active"]);
 
   if (scenarioErr || !scenarioRows) {
     return null;

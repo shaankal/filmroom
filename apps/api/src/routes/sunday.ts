@@ -143,8 +143,6 @@ export async function registerSundayRoutes(app: FastifyInstance) {
           context: row.context,
           prompt: row.prompt,
           choices: normalizeChoices(row.choices),
-          correctAnswer: row.correct_answer,
-          explanation: row.explanation,
         })),
         submission: null,
       };
@@ -208,8 +206,42 @@ export async function registerSundayRoutes(app: FastifyInstance) {
       const scenarioRows = await loadChallengeScenarios(
         window.scenario_set_id as string
       );
-      if (!scenarioRows) {
+      if (!scenarioRows || scenarioRows.length === 0) {
         return reply.code(500).send({ error: "submit_failed" });
+      }
+
+      const scenarioIds = scenarioRows.map((row) => row.id);
+      const submittedIds = responses.map((response) => response.scenarioId);
+      const uniqueSubmittedIds = new Set(submittedIds);
+      const expectedIds = new Set(scenarioIds);
+
+      if (
+        uniqueSubmittedIds.size !== scenarioIds.length ||
+        responses.length !== scenarioIds.length
+      ) {
+        return reply.code(400).send({ error: "incomplete_submission" });
+      }
+
+      for (const scenarioId of uniqueSubmittedIds) {
+        if (!expectedIds.has(scenarioId)) {
+          return reply.code(400).send({ error: "invalid_scenario_submission" });
+        }
+      }
+
+      const { data: existingResult, error: existingErr } = await supabase
+        .from("sunday_results")
+        .select("id")
+        .eq("user_id", userId)
+        .eq("window_id", window.id)
+        .eq("league_id", leagueId)
+        .maybeSingle();
+
+      if (existingErr) {
+        request.log.error(existingErr);
+        return reply.code(500).send({ error: "submit_failed" });
+      }
+      if (existingResult) {
+        return reply.code(409).send({ error: "already_submitted" });
       }
 
       const scenarioById = new Map(scenarioRows.map((row) => [row.id, row]));
@@ -238,19 +270,16 @@ export async function registerSundayRoutes(app: FastifyInstance) {
         });
       }
 
-      const { error: upsertErr } = await supabase.from("sunday_results").upsert(
-        {
+      const { error: insertErr } = await supabase.from("sunday_results").insert({
           user_id: userId,
           window_id: window.id,
           league_id: leagueId,
           total_pts: totalPoints,
           completed_at: new Date().toISOString(),
-        },
-        { onConflict: "user_id,window_id,league_id" }
-      );
+      });
 
-      if (upsertErr) {
-        request.log.error(upsertErr);
+      if (insertErr) {
+        request.log.error(insertErr);
         return reply.code(500).send({ error: "submit_failed" });
       }
 

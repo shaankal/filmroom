@@ -17,14 +17,24 @@ export default function ProfileScreen() {
       <ScrollView className="pb-8" showsVerticalScrollIndicator={false}>
         <BrandHeader subtitle={session?.username ?? "Player"} />
 
-        {profile.isPending ? (
+        {profile.isLoading ? (
           <ActivityIndicator className="mt-10" color="#FF6B35" />
         ) : profile.isError ? (
-          <Text className="mt-6 px-4 text-red-400">
-            {profile.error instanceof Error
-              ? profile.error.message
-              : "Could not load profile"}
-          </Text>
+          <Card className="mt-4">
+            <Text className="text-sm text-red-400">
+              {profile.error instanceof Error
+                ? profile.error.message
+                : "Could not load profile"}
+            </Text>
+            {profile.error instanceof Error &&
+            profile.error.message.toLowerCase().includes("invalid token") ? (
+              <Text className="mt-2 text-xs text-film-chalk/55">
+                Sign out and sign in again. If it persists, check SUPABASE_JWT_SECRET
+                in apps/api/.env matches Supabase → Project Settings → API → JWT
+                Secret.
+              </Text>
+            ) : null}
+          </Card>
         ) : profile.data ? (
           <>
             <Card className="mt-2">

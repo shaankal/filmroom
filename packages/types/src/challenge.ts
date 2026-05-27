@@ -19,8 +19,8 @@ export type WeeklyChallengeScenario = {
   context: string;
   prompt: string;
   choices: ScenarioChoice[];
-  correctAnswer: ScenarioAnswer;
-  explanation: string;
+  correctAnswer?: ScenarioAnswer;
+  explanation?: string;
 };
 
 export type WeeklyChallengeResponseRow = {

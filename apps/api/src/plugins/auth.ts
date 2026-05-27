@@ -2,6 +2,29 @@ import fp from "fastify-plugin";
 import jwt from "jsonwebtoken";
 import type { FastifyPluginAsync } from "fastify";
 
+import { getSupabaseAuth } from "../lib/supabase";
+
+/** Resolve Supabase user id from access token (legacy HS256 secret or Auth API). */
+async function resolveUserIdFromToken(token: string): Promise<string | null> {
+  const secret = process.env.SUPABASE_JWT_SECRET?.trim();
+  if (secret) {
+    try {
+      const payload = jwt.verify(token, secret) as { sub?: string };
+      if (payload.sub) {
+        return payload.sub;
+      }
+    } catch {
+      /* HS256 verify failed — asymmetric JWT or wrong secret; fall through */
+    }
+  }
+
+  const { data, error } = await getSupabaseAuth().auth.getUser(token);
+  if (error || !data.user?.id) {
+    return null;
+  }
+  return data.user.id;
+}
+
 function pathOnly(url: string): string {
   const q = url.indexOf("?");
   return q === -1 ? url : url.slice(0, q);
@@ -62,15 +85,11 @@ const authPlugin: FastifyPluginAsync = async (fastify) => {
       return reply.code(401).send({ error: "missing token" });
     }
 
-    try {
-      const payload = jwt.verify(token, jwtSecret) as { sub?: string };
-      if (!payload.sub) {
-        return reply.code(401).send({ error: "invalid token" });
-      }
-      request.userId = payload.sub;
-    } catch {
+    const userId = await resolveUserIdFromToken(token);
+    if (!userId) {
       return reply.code(401).send({ error: "invalid token" });
     }
+    request.userId = userId;
   });
 };
 

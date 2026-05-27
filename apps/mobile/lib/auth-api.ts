@@ -30,6 +30,20 @@ export async function loginAccount(input: {
   return authSuccessToSession(body);
 }
 
+export async function refreshSession(
+  refresh_token: string
+): Promise<Pick<AuthSession, "access_token" | "refresh_token">> {
+  const body = await api.post<{
+    access_token: string;
+    refresh_token: string;
+    expires_in: number;
+  }>("/auth/refresh", { refresh_token });
+  return {
+    access_token: body.access_token,
+    refresh_token: body.refresh_token,
+  };
+}
+
 export async function logoutAccount(): Promise<void> {
   await api.delete("/auth/logout");
 }

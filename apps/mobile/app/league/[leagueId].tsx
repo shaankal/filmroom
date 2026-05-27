@@ -42,7 +42,7 @@ export default function LeagueHubScreen() {
     }
   }, [hub.data?.league.name, navigation]);
 
-  if (hub.isPending) {
+  if (hub.isLoading) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center bg-film-bg">
         <ActivityIndicator color="#FF6B35" size="large" />

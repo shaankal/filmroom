@@ -122,6 +122,9 @@ export async function registerPaymentRoutes(app: FastifyInstance) {
   app.post("/payments/webhook", async (request, reply) => {
     const secret = process.env.REVENUECAT_WEBHOOK_SECRET;
     const header = request.headers.authorization;
+    if (!secret && process.env.NODE_ENV === "production") {
+      return reply.code(500).send({ error: "webhook_secret_not_configured" });
+    }
     if (secret && header !== `Bearer ${secret}`) {
       return reply.code(401).send({ error: "unauthorized" });
     }

@@ -36,8 +36,14 @@ export default function ChallengeTabScreen() {
           </Text>
         </View>
 
-        {pending.isPending ? (
+        {pending.isLoading ? (
           <ActivityIndicator className="mt-8" color="#FF6B35" />
+        ) : pending.isError ? (
+          <Text className="px-3.5 text-sm text-red-400">
+            {pending.error instanceof Error
+              ? pending.error.message
+              : "Could not load challenges"}
+          </Text>
         ) : (
           <>
             <SectionLabel>Incoming</SectionLabel>

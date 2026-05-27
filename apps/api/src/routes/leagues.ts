@@ -202,10 +202,6 @@ export async function registerLeagueRoutes(app: FastifyInstance) {
         return reply.code(404).send({ error: "league_not_found" });
       }
 
-      if (league.health_state !== "healthy") {
-        return reply.code(403).send({ error: "league_unavailable" });
-      }
-
       const { data: comm } = await supabase
         .from("users")
         .select("username")
@@ -267,10 +263,6 @@ export async function registerLeagueRoutes(app: FastifyInstance) {
     if (!league) {
       return reply.code(404).send({ error: "league_not_found" });
     }
-    if (league.health_state !== "healthy") {
-      return reply.code(403).send({ error: "league_unavailable" });
-    }
-
     const { data: existing } = await supabase
       .from("league_members")
       .select("id")

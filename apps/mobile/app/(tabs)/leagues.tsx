@@ -71,7 +71,7 @@ export default function LeaguesScreen() {
         className="flex-1 px-4 pt-2"
         data={leagues.data?.leagues ?? []}
         keyExtractor={(item) => item.id}
-        refreshing={leagues.isFetching && !leagues.isPending}
+        refreshing={leagues.isFetching && !leagues.isLoading}
         onRefresh={() => void leagues.refetch()}
         ListHeaderComponent={
           <View className="pb-4">
@@ -177,7 +177,7 @@ export default function LeaguesScreen() {
           </View>
         }
         ListEmptyComponent={
-          leagues.isPending ? (
+          leagues.isLoading ? (
             <ActivityIndicator className="mt-8" color="#FF6B35" />
           ) : leagues.isError ? (
             <Text className="mt-4 text-film-chalk/75">
